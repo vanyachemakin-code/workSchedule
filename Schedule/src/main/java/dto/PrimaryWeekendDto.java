@@ -8,6 +8,6 @@ import java.util.List;
 @Data
 public class PrimaryWeekendDto {
 
-    private final LocalDate date;
-    private final List<EmployeeDto> employeeDtos;
+    private LocalDate date;
+    private List<EmployeeDto> employeeDtos;
 }

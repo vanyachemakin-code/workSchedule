@@ -7,7 +7,8 @@ import java.util.List;
 @Data
 public class EmployeeDto {
 
-    private final String name;
-    private final List<PrimaryWeekendDto> primaryWeekendDtos;
-    private final CompanyDto companyDto;
+    private String name;
+    private List<PrimaryWeekendDto> primaryWeekendDtos;
+    private CompanyDto companyDto;
+    private int shiftsInARow = 0;
 }

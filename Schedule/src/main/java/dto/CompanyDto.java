@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class CompanyDto {
 
-    private final String name;
+    private String name;
     private int standardEmployeePerDay;
-    private final List<EmployeeDto> employeeDtos;
+    private List<EmployeeDto> employeeDtos;
 }

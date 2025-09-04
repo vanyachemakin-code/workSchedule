@@ -34,7 +34,7 @@ public class Schedule {
         }
     }
 
-    private int getEmployeeShifts() {
+    private int getEmployeeMonthShifts() {
         return Math.round((float) HolidayChecker.getDaysInMonth(month) / companyDto.getEmployeeDtos().size());
     }
 
@@ -55,19 +55,17 @@ public class Schedule {
         }
     }
 
-    //нужно реализовать
     public void generate() {
         Collection<EmployeeDto> employees = companyDto.getEmployeeDtos();
         Set<LocalDate> days = employeeCountPerDay.keySet();
-        int shiftsInARow = 0;
-        int employeeShifts = getEmployeeShifts();
+        int employeeMonthShifts = getEmployeeMonthShifts();
         point:
         for (LocalDate day: days) {
             StringBuilder dayShifts = new StringBuilder(employeeCountPerDay.get(day));
             for (EmployeeDto employee: employees) {
-                shiftsInARow++;
-                employeeShifts--;
-                if (shiftsInARow < 3 && employeeShifts != 0) {
+                employee.setShiftsInARow(employee.getShiftsInARow() + 1);
+                employeeMonthShifts--;
+                if (employee.getShiftsInARow() < 3 && employeeMonthShifts != 0) {
                     dayShifts.append(day)
                             .append(": ")
                             .append(employee.getName())
