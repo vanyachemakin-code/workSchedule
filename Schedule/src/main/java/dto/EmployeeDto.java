@@ -11,4 +11,5 @@ public class EmployeeDto {
     private List<PrimaryWeekendDto> primaryWeekendDtos;
     private CompanyDto companyDto;
     private int shiftsInARow = 0;
+    private int monthShifts;
 }

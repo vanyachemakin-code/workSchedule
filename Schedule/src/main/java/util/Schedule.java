@@ -24,7 +24,6 @@ public class Schedule {
     public Schedule(Month month, CompanyDto companyDto) {
         this.month = month;
         this.companyDto = companyDto;
-        setEmployeeCountPerDay();
         try {
             writer = new FileWriter(
                     "/Users/vanyachemakin/IdeaProjects/workSchedule/Schedule/schedule/schedule.txt"
@@ -36,6 +35,11 @@ public class Schedule {
 
     private int getEmployeeMonthShifts() {
         return Math.round((float) HolidayChecker.getDaysInMonth(month) / companyDto.getEmployeeDtos().size());
+    }
+
+    private void setEmployeeMonthShifts() {
+        Collection<EmployeeDto> employees = companyDto.getEmployeeDtos();
+        for (EmployeeDto employee: employees) employee.setMonthShifts(getEmployeeMonthShifts());
     }
 
     private void setEmployeeCountPerDay() {
@@ -56,16 +60,17 @@ public class Schedule {
     }
 
     public void generate() {
+        setEmployeeMonthShifts();
+        setEmployeeCountPerDay();
         Collection<EmployeeDto> employees = companyDto.getEmployeeDtos();
         Set<LocalDate> days = employeeCountPerDay.keySet();
-        int employeeMonthShifts = getEmployeeMonthShifts();
         point:
         for (LocalDate day: days) {
             StringBuilder dayShifts = new StringBuilder(employeeCountPerDay.get(day));
             for (EmployeeDto employee: employees) {
                 employee.setShiftsInARow(employee.getShiftsInARow() + 1);
-                employeeMonthShifts--;
-                if (employee.getShiftsInARow() < 3 && employeeMonthShifts != 0) {
+                employee.setMonthShifts(employee.getMonthShifts() - 1);
+                if (employee.getShiftsInARow() < 3 && employee.getMonthShifts() != 0) {
                     dayShifts.append(day)
                             .append(": ")
                             .append(employee.getName())
@@ -76,6 +81,7 @@ public class Schedule {
                     scheduleWriter(dayShifts.toString());
                     continue point;
                 }
+                if (employee.getShiftsInARow() == 4) employee.setShiftsInARow(0);
             }
         }
     }
