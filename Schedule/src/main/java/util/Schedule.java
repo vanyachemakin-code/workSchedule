@@ -2,16 +2,15 @@ package util;
 
 import dto.CompanyDto;
 import dto.EmployeeDto;
+import dto.ScheduleDto;
 import lombok.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Data
 public class Schedule {
@@ -59,30 +58,29 @@ public class Schedule {
         }
     }
 
-    public void generate() {
+    //доработать
+    public List<ScheduleDto> generate() {
         setEmployeeMonthShifts();
         setEmployeeCountPerDay();
         Collection<EmployeeDto> employees = companyDto.getEmployeeDtos();
         Set<LocalDate> days = employeeCountPerDay.keySet();
+        List<ScheduleDto> schedule = new ArrayList<>();
         point:
         for (LocalDate day: days) {
-            StringBuilder dayShifts = new StringBuilder(employeeCountPerDay.get(day));
+            List<String> employeePerDay = new ArrayList<>();
             for (EmployeeDto employee: employees) {
                 employee.setShiftsInARow(employee.getShiftsInARow() + 1);
                 employee.setMonthShifts(employee.getMonthShifts() - 1);
                 if (employee.getShiftsInARow() < 3 && employee.getMonthShifts() != 0) {
-                    dayShifts.append(day)
-                            .append(": ")
-                            .append(employee.getName())
-                            .append("/");
+                    employeePerDay.add(employee.getName());
                 }
-                if (dayShifts.length() == employeeCountPerDay.get(day)) {
-                    dayShifts.append("\n");
-                    scheduleWriter(dayShifts.toString());
+                if (employeePerDay.size() == employeeCountPerDay.get(day)) {
+                    schedule.add(new ScheduleDto(day.format(DateTimeFormatter.ofPattern("dd/MM")), employeePerDay));
                     continue point;
                 }
                 if (employee.getShiftsInARow() == 4) employee.setShiftsInARow(0);
             }
         }
+        return schedule;
     }
 }
