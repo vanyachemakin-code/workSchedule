@@ -22,6 +22,12 @@ public class Company {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "min_employee_per_day")
+    private int minEmployeePerDay;
+
+    @Column(name = "max_employee_per_day")
+    private int maxEmployeePerDay;
+
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Employee> employees;
 }

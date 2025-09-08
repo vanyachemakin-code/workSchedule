@@ -14,17 +14,17 @@ public class EmployeeController {
 
     private final EmployeeService service;
 
-    @PostMapping("/company/{id}")
+    @PostMapping("/company?id={id}")
     private void create(@PathVariable long companyId, @RequestBody EmployeeDto employeeDto) {
         service.create(companyId, employeeDto);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete?id={id}")
     private void deleteById(@PathVariable long id) {
         service.deleteById(id);
     }
 
-    @DeleteMapping("/delete/company/{id}")
+    @DeleteMapping("/delete/company?id={id}")
     private void deleteAllEmployeeInCompany(@PathVariable long companyId) {
         service.deleteAllEmployeeInCompany(companyId);
     }
@@ -34,12 +34,12 @@ public class EmployeeController {
         service.deleteAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("?id={id}")
     private EmployeeDto getById (@PathVariable long id) {
         return service.getById(id);
     }
 
-    @GetMapping("/company/{id}")
+    @GetMapping("/company?id={id}")
     private Collection<EmployeeDto> getAllEmployeeInCompany(@PathVariable long companyId) {
         return service.getAllEmployeesInCompany(companyId);
     }
@@ -49,7 +49,7 @@ public class EmployeeController {
         return service.getAll();
     }
 
-    @PutMapping("/update/company/{id}")
+    @PutMapping("/update/company?id={id}")
     private void update(@PathVariable long companyId, @RequestBody EmployeeDto employeeDto) {
         service.update(companyId, employeeDto);
     }

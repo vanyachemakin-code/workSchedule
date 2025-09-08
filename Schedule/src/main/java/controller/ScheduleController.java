@@ -15,7 +15,7 @@ public class ScheduleController {
 
     private final ScheduleService service;
 
-    @PostMapping("/company/{id}")
+    @PostMapping("/company?={id}")
     private Collection<ScheduleDto> get(@RequestBody String monthStr, @PathVariable long companyId) {
         Month month = Month.valueOf(monthStr);
         return service.get(month, companyId);

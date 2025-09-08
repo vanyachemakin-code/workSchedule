@@ -14,12 +14,12 @@ public class PrimaryWeekendController {
 
     private final PrimaryWeekendService service;
 
-    @PostMapping("/employee/{id}")
+    @PostMapping("/employee?id={id}")
     private void add(@PathVariable long employeeId, @RequestBody PrimaryWeekendDto primaryWeekendDto) {
         service.add(employeeId, primaryWeekendDto);
     }
 
-    @PostMapping("/employee/{id}")
+    @PostMapping("/employee?id={id}")
     private void addMoreThanOne(@PathVariable long employeeId, @RequestBody Collection<PrimaryWeekendDto> primaryWeekendDtos) {
         service.addMoreThanOne(employeeId, primaryWeekendDtos);
     }

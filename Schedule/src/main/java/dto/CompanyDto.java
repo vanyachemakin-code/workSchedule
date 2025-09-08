@@ -8,6 +8,7 @@ import java.util.List;
 public class CompanyDto {
 
     private String name;
-    private int standardEmployeePerDay;
+    private int minEmployeePerDay;
+    private int maxEmployeePerDay;
     private List<EmployeeDto> employeeDtos;
 }

@@ -20,7 +20,7 @@ public class CompanyController {
         service.create(companyDto);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete?id={id}")
     private void deleteById(long id) {
         service.deleteById(id);
     }
@@ -30,12 +30,12 @@ public class CompanyController {
         service.deleteAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("?id={id}")
     private CompanyDto getById(@PathVariable long id) {
         return service.getById(id);
     }
 
-    @GetMapping("/employee/{id}")
+    @GetMapping("/employee?id={id}")
     private CompanyDto getByEmployeeId(@PathVariable long id) {
         return service.getByEmployeeId(id);
     }
@@ -45,7 +45,7 @@ public class CompanyController {
         return service.getAll();
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update?id={id}")
     private void update(@PathVariable long id, @RequestBody CompanyDto companyDto) {
         service.update(id, companyDto);
     }
