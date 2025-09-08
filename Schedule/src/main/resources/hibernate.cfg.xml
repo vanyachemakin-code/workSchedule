@@ -13,8 +13,8 @@
         <property name="current_session_context_class">thread</property>
         <property name="hbm2ddl.auto">update</property>
 
-        <mapping class="entity.Company"></mapping>
-        <mapping class="entity.Employee"></mapping>
-        <mapping class="entity.PrimaryWeekend"></mapping>
+        <mapping class="entity.Company"/>
+        <mapping class="entity.Employee"/>
+        <mapping class="entity.PrimaryWeekend"/>
     </session-factory>
 </hibernate-configuration>
