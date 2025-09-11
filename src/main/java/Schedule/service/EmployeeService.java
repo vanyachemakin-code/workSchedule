@@ -66,7 +66,7 @@ public class EmployeeService {
 
     public void deleteAll() {
         if (employeeRepository.findAll().isEmpty()) throw new EmployeeNotFoundException();
-        employeeRepository.deleteAll();;
+        employeeRepository.deleteAll();
     }
 
     public void deleteById(long id) {

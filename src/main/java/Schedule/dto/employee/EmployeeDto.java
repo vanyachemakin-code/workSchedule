@@ -4,7 +4,6 @@ import Schedule.dto.CompanyDto;
 import Schedule.dto.PrimaryWeekendDto;
 import lombok.Data;
 
-import java.util.Set;
 
 @Data
 public class EmployeeDto {

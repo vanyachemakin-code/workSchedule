@@ -1,6 +1,5 @@
 package Schedule.entity;
 
-import Schedule.dto.PrimaryWeekendDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
