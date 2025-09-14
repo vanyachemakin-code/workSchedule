@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url:
-    username:
-    password:
+    url: jdbc:postgresql://localhost:5432/work_schedule
+    username: admin
+    password: somePass
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate.ddl-auto: update
