@@ -2,7 +2,7 @@ package Schedule.util;
 
 import Schedule.dto.CompanyDto;
 import Schedule.dto.ScheduleDto;
-import Schedule.dto.employee.EmployeeDto;
+import Schedule.dto.EmployeeDto;
 import lombok.*;
 
 import java.time.LocalDate;

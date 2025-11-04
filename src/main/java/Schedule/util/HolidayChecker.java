@@ -1,10 +1,13 @@
 package Schedule.util;
 
+import lombok.experimental.UtilityClass;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
 import java.util.*;
 
+@UtilityClass
 public class HolidayChecker {
 
     private static final Set<LocalDate> HOLIDAY = new HashSet<>(Arrays.asList(
@@ -26,17 +29,17 @@ public class HolidayChecker {
             LocalDate.of(LocalDate.now().getYear(), 12, 31)
     ));
 
-    public static boolean isWeekend(LocalDate date) {
+    public boolean isWeekend(LocalDate date) {
         return date.getDayOfWeek().getValue() > 4
                 | HOLIDAY.contains(date)
                 | (date.getMonth().getValue() > 5 && date.getMonth().getValue() < 9);
     }
 
-    public static boolean isLeap() {
+    public boolean isLeap() {
         return Year.now().isLeap();
     }
 
-    public static List<LocalDate> getDays(Month month) {
+    public List<LocalDate> getDays(Month month) {
         List<LocalDate> days = new ArrayList<>();
 
         for (int day = 1; day <= month.length(isLeap()); day++) {
@@ -45,7 +48,7 @@ public class HolidayChecker {
         return days;
     }
 
-    public static int getDaysInMonth(Month month) {
+    public int getDaysInMonth(Month month) {
         return month.length(isLeap());
     }
 }

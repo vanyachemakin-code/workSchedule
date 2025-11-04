@@ -13,8 +13,10 @@ public class PrimaryWeekendController {
 
     private final PrimaryWeekendService service;
 
+    //Изменить входные данный на модели и настроить из взаимодействие с HTML
+
     @PostMapping("/employee/{id}")
-    private void add(@PathVariable long employeeId, @RequestBody PrimaryWeekendDto primaryWeekendDto) {
+    private void add(@PathVariable Long employeeId, @RequestBody PrimaryWeekendDto primaryWeekendDto) {
         service.add(employeeId, primaryWeekendDto);
     }
 }

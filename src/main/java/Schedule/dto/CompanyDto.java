@@ -1,6 +1,5 @@
 package Schedule.dto;
 
-import Schedule.dto.employee.EmployeeDto;
 import lombok.Data;
 
 import java.util.List;
@@ -8,6 +7,7 @@ import java.util.List;
 @Data
 public class CompanyDto {
 
+    private Long id;
     private String name;
     private int minEmployeePerDay;
     private int maxEmployeePerDay;

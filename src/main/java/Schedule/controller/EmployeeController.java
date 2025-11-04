@@ -1,7 +1,6 @@
 package Schedule.controller;
 
-import Schedule.dto.employee.EmployeeDto;
-import Schedule.dto.employee.EmployeeDtoCreate;
+import Schedule.dto.EmployeeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import Schedule.service.EmployeeService;
@@ -15,18 +14,20 @@ public class EmployeeController {
 
     private final EmployeeService service;
 
+    //Изменить входные данный на модели и настроить из взаимодействие с HTML
+
     @PostMapping("/company/{companyId}")
-    private void create(@PathVariable long companyId, @RequestBody EmployeeDtoCreate employeeDtoRest) {
-        service.create(companyId, employeeDtoRest);
+    private void create(@PathVariable Long companyId, @RequestBody EmployeeDto employeeDto) {
+        service.create(companyId, employeeDto);
     }
 
     @DeleteMapping("/delete/{id}")
-    private void deleteById(@PathVariable long id) {
+    private void deleteById(@PathVariable Long id) {
         service.deleteById(id);
     }
 
     @DeleteMapping("/delete/company/{companyId}")
-    private void deleteAllEmployeeInCompany(@PathVariable long companyId) {
+    private void deleteAllEmployeeInCompany(@PathVariable Long companyId) {
         service.deleteAllEmployeeInCompany(companyId);
     }
 
@@ -36,12 +37,12 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    private EmployeeDto getById (@PathVariable long id) {
+    private EmployeeDto getById (@PathVariable Long id) {
         return service.getById(id);
     }
 
     @GetMapping("/company/{companyId}")
-    private Collection<EmployeeDto> getAllEmployeeInCompany(@PathVariable long companyId) {
+    private Collection<EmployeeDto> getAllEmployeeInCompany(@PathVariable Long companyId) {
         return service.getAllEmployeesInCompany(companyId);
     }
 
@@ -51,7 +52,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/update/company/{companyId}")
-    private void update(@PathVariable long companyId, @RequestBody EmployeeDto employeeDtoRest) {
+    private void update(@PathVariable Long companyId, @RequestBody EmployeeDto employeeDtoRest) {
         service.update(companyId, employeeDtoRest);
     }
 }

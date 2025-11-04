@@ -1,17 +1,19 @@
 package Schedule.service;
 
 import Schedule.dto.CompanyDto;
-import Schedule.dto.employee.EmployeeDto;
+import Schedule.dto.EmployeeDto;
 import Schedule.dto.employee.EmployeeDtoCreate;
 import Schedule.entity.Company;
 import Schedule.entity.Employee;
 import Schedule.exception.CompanyNotFoundException;
 import Schedule.exception.EmployeeNotFoundException;
+import Schedule.util.BeanUtils;
+import Schedule.util.mapper.CompanyMapper;
+import Schedule.util.mapper.EmployeeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import Schedule.repository.CompanyRepository;
 import Schedule.repository.EmployeeRepository;
-import Schedule.util.Mapper;
 
 import java.util.Collection;
 import java.util.List;
@@ -24,43 +26,33 @@ public class EmployeeService {
     private final CompanyRepository companyRepository;
     private final EmployeeRepository employeeRepository;
 
-    public void create(long companyId, EmployeeDtoCreate employeeDtoCreate) {
+    public void create(Long companyId, EmployeeDto employeeDto) {
         Optional<Company> optionalCompany = companyRepository.findById(companyId);
         if (optionalCompany.isEmpty()) throw new CompanyNotFoundException();
 
-        CompanyDto companyDto = Mapper.mapCompanyToDto(optionalCompany.get());
-
-        EmployeeDto employeeDto = new EmployeeDto();
-        employeeDto.setName(employeeDtoCreate.getName());
-        employeeDto.setCompanyDto(companyDto);
-
-        List<EmployeeDto> employeeDtoList = companyDto.getEmployees();
-        employeeDtoList.add(employeeDto);
-        companyDto.setEmployees(employeeDtoList);
-
-        companyRepository.save(Mapper.mapCompanyDtoToEntity(companyDto));
-        employeeRepository.save(Mapper.mapEmployeeDtoToEntity(employeeDto));
+        employeeDto.setCompanyDto(CompanyMapper.entityToDto(optionalCompany.get()));
+        employeeRepository.save(EmployeeMapper.dtoToEntity(employeeDto));
     }
 
-    public Collection<EmployeeDto> getAllEmployeesInCompany(long companyId) {
+    public Collection<EmployeeDto> getAllEmployeesInCompany(Long companyId) {
         Optional<Company> optionalCompany = companyRepository.findById(companyId);
         if (optionalCompany.isEmpty()) throw new CompanyNotFoundException();
 
-        CompanyDto companyDto = Mapper.mapCompanyToDto(optionalCompany.get());
+        CompanyDto companyDto = CompanyMapper.entityToDto(optionalCompany.get());
         return companyDto.getEmployees();
     }
 
-    public EmployeeDto getById(long id) {
+    public EmployeeDto getById(Long id) {
         Optional<Employee> optionalEmployee = employeeRepository.findById(id);
         if (optionalEmployee.isEmpty()) throw new EmployeeNotFoundException();
-        return Mapper.mapEmployeeToDto(optionalEmployee.get());
+        return EmployeeMapper.entityToDto(optionalEmployee.get());
     }
 
     public Collection<EmployeeDto> getAll() {
         List<Employee> employeeList = employeeRepository.findAll();
         if (employeeList.isEmpty()) throw new EmployeeNotFoundException();
         return employeeList.stream()
-                .map(Mapper::mapEmployeeToDto)
+                .map(EmployeeMapper::entityToDto)
                 .toList();
     }
 
@@ -69,12 +61,12 @@ public class EmployeeService {
         employeeRepository.deleteAll();
     }
 
-    public void deleteById(long id) {
+    public void deleteById(Long id) {
         if (employeeRepository.findById(id).isEmpty()) throw new EmployeeNotFoundException();
         employeeRepository.deleteById(id);
     }
 
-    public void deleteAllEmployeeInCompany(long companyId) {
+    public void deleteAllEmployeeInCompany(Long companyId) {
         Optional<Company> optionalCompany = companyRepository.findById(companyId);
         if (optionalCompany.isEmpty()) throw new CompanyNotFoundException();
         Company company = optionalCompany.get();
@@ -82,12 +74,15 @@ public class EmployeeService {
         companyRepository.save(company);
     }
 
-    public void update(long companyId, EmployeeDto employeeDto) {
+    public void update(Long companyId, EmployeeDto employeeDto) {
         Optional<Company> optionalCompany = companyRepository.findById(companyId);
         if (optionalCompany.isEmpty()) throw new CompanyNotFoundException();
-        Company company = optionalCompany.get();
-        company.getEmployees().add(Mapper.mapEmployeeDtoToEntity(employeeDto));
-        companyRepository.save(company);
-        employeeRepository.save(Mapper.mapEmployeeDtoToEntity(employeeDto));
+
+        Employee employee = optionalCompany.get()
+                .getEmployees()
+                .get(Math.toIntExact(employeeDto.getId()));
+
+        BeanUtils.copyFields(EmployeeMapper.dtoToEntity(employeeDto), employee);
+        employeeRepository.save(employee);
     }
 }

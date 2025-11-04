@@ -15,13 +15,15 @@ public class CompanyController {
 
     private final CompanyService service;
 
+    //Изменить входные данный на модели и настроить из взаимодействие с HTML
+
     @PostMapping
     private void create(@RequestBody CompanyDto companyDto) {
         service.create(companyDto);
     }
 
     @DeleteMapping("/delete/{id}")
-    private void deleteById(long id) {
+    private void deleteById(Long id) {
         service.deleteById(id);
     }
 
@@ -31,12 +33,12 @@ public class CompanyController {
     }
 
     @GetMapping("/{id}")
-    private CompanyDto getById(@PathVariable long id) {
+    private CompanyDto getById(@PathVariable Long id) {
         return service.getById(id);
     }
 
     @GetMapping("/employee/{id}")
-    private CompanyDto getByEmployeeId(@PathVariable long id) {
+    private CompanyDto getByEmployeeId(@PathVariable Long id) {
         return service.getByEmployeeId(id);
     }
 
@@ -46,7 +48,7 @@ public class CompanyController {
     }
 
     @PutMapping("/update/{id}")
-    private void update(@PathVariable long id, @RequestBody CompanyDto companyDto) {
+    private void update(@PathVariable Long id, @RequestBody CompanyDto companyDto) {
         service.update(id, companyDto);
     }
 }
