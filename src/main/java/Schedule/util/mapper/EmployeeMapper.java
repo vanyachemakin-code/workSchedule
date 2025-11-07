@@ -22,4 +22,8 @@ public class EmployeeMapper {
     public EmployeeDto modelToDto (EmployeeModel employeeModel) {
         return mapper.map(employeeModel, EmployeeDto.class);
     }
+
+    public EmployeeModel dtoToModel(EmployeeDto employeeDto) {
+        return mapper.map(employeeDto, EmployeeModel.class);
+    }
 }

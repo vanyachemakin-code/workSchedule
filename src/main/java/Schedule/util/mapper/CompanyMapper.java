@@ -19,7 +19,11 @@ public class CompanyMapper {
         return mapper.map(company, CompanyDto.class);
     }
 
-    public Company modelToEntity (CompanyModel companyModel) {
-        return mapper.map(companyModel, Company.class);
+    public CompanyDto modelToDto(CompanyModel companyModel) {
+        return mapper.map(companyModel, CompanyDto.class);
+    }
+
+    public CompanyModel dtoToModel(CompanyDto companyDto) {
+        return mapper.map(companyDto, CompanyModel.class);
     }
 }

@@ -40,7 +40,6 @@ public class PrimaryWeekendService {
                 employeeDto
         );
         weekendRepository.save(PrimaryWeekendMapper.dtoToEntity(primaryWeekendDto));
-
     }
 
     public void deleteWeekends(Long employeeId) {

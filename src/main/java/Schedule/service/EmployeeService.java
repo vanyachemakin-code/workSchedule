@@ -2,7 +2,6 @@ package Schedule.service;
 
 import Schedule.dto.CompanyDto;
 import Schedule.dto.EmployeeDto;
-import Schedule.dto.employee.EmployeeDtoCreate;
 import Schedule.entity.Company;
 import Schedule.entity.Employee;
 import Schedule.exception.CompanyNotFoundException;
@@ -56,11 +55,6 @@ public class EmployeeService {
                 .toList();
     }
 
-    public void deleteAll() {
-        if (employeeRepository.findAll().isEmpty()) throw new EmployeeNotFoundException();
-        employeeRepository.deleteAll();
-    }
-
     public void deleteById(Long id) {
         if (employeeRepository.findById(id).isEmpty()) throw new EmployeeNotFoundException();
         employeeRepository.deleteById(id);
@@ -74,14 +68,11 @@ public class EmployeeService {
         companyRepository.save(company);
     }
 
-    public void update(Long companyId, EmployeeDto employeeDto) {
-        Optional<Company> optionalCompany = companyRepository.findById(companyId);
-        if (optionalCompany.isEmpty()) throw new CompanyNotFoundException();
+    public void update(Long id, EmployeeDto employeeDto) {
+        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
+        if (optionalEmployee.isEmpty()) throw new EmployeeNotFoundException();
 
-        Employee employee = optionalCompany.get()
-                .getEmployees()
-                .get(Math.toIntExact(employeeDto.getId()));
-
+        Employee employee = optionalEmployee.get();
         BeanUtils.copyFields(EmployeeMapper.dtoToEntity(employeeDto), employee);
         employeeRepository.save(employee);
     }
