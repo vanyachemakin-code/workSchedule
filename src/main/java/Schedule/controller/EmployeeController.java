@@ -53,17 +53,17 @@ public class EmployeeController {
 
     @GetMapping
     private String getAll(Model model) {
-        model.addAttribute("all_employees");
+        model.addAttribute("all_employees", service.getAll());
         return "all-employees-list";
     }
 
-    @PutMapping("/company/{companyId}/employee/{id}/update")
+    @PutMapping("/company/{companyId}/employee/update/{id}")
     private String update(@PathVariable Long id, @RequestBody EmployeeModel employeeModel) {
         service.update(id, EmployeeMapper.modelToDto(employeeModel));
         return "redirect:/work_schedule/company/{companyId}/employees";
     }
 
-    @PutMapping("/company/{companyId}/employee/{id}/update")
+    @GetMapping("/company/{companyId}/employee/update/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
         EmployeeModel employeeModel = EmployeeMapper.dtoToModel(service.getById(id));
         if (employeeModel == null) return "redirect:/contacts";

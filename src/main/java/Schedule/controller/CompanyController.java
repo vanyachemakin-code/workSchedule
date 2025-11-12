@@ -41,13 +41,13 @@ public class CompanyController {
     @GetMapping("/employee/{employeeId}")
     private String getByEmployeeId(@PathVariable Long employeeId, Model model) {
         model.addAttribute("company", service.getByEmployeeId(employeeId));
-        return "company-get-by-employee";
+        return "company-get-by";
     }
 
     @GetMapping("/{id}")
     private String getById(@PathVariable Long id, Model model) {
         model.addAttribute("company", service.getById(id));
-        return "company-get-by-id";
+        return "company-get-by";
     }
 
     @GetMapping()
@@ -65,7 +65,7 @@ public class CompanyController {
     @GetMapping("/update/{id}")
     public String updateForm(@PathVariable("id") Long id, Model model) {
         CompanyModel companyModel = CompanyMapper.dtoToModel(service.getById(id));
-        if (companyModel == null) return "redirect:/contacts";
+        if (companyModel == null) return "redirect:/work_schedule/company";
 
         model.addAttribute("company", companyModel);
         return "company-form";

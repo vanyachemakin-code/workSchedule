@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class PrimaryWeekendDto {
 
-    private Long id;
+    private Long id = System.currentTimeMillis();
     private EmployeeDto employeeDto;
     private List<String> date;
 

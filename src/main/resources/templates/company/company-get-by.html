@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Company List</title>
+    <title>Company</title>
 </head>
 <body>
-<h1>Company List</h1>
+<h1 th:text="'Company with ID ' + ${employee.id}">Company</h1>
 <table>
     <tr>
         <th>ID</th>
@@ -15,7 +15,7 @@
         <th>Max Employee per day</th>
         <th>Actions</th>
     </tr>
-    <tr th:each="company : ${all_company}">
+    <tr th:object="${company}">
         <td th:text="${company.id}"></td>
         <td th:text="${company.name}"></td>
         <td th:text="${company.employees.size}}"></td>
@@ -26,9 +26,7 @@
             <a th:href="@{/work_schedule/company/delete/{id}(id=${company.id})}">Delete</a>
         </td>
     </tr>
-    <a href="/work_schedule/company/delete_all">DELETE ALL COMPANY</a>
 </table>
-<a href="/work_schedule/company/add">Add Company</a>
 <a href="/work_schedule">Menu</a>
 </body>
 </html>
