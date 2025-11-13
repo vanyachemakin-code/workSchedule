@@ -1,0 +1,10 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:12.2
+    ports:
+      - "333:333"
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=work_schedule
