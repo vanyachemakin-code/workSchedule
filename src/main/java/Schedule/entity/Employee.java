@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,5 +28,5 @@ public class Employee {
     private Company company;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private List<PrimaryWeekend> primaryWeekends;
+    private List<PrimaryWeekend> primaryWeekends = new ArrayList<>();
 }

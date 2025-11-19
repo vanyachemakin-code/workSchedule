@@ -4,6 +4,7 @@ import Schedule.dto.CompanyDto;
 import Schedule.dto.EmployeeDto;
 import Schedule.entity.Company;
 import Schedule.entity.Employee;
+
 import Schedule.exception.CompanyNotFoundException;
 import Schedule.exception.EmployeeNotFoundException;
 import Schedule.util.BeanUtils;
@@ -49,7 +50,6 @@ public class EmployeeService {
 
     public Collection<EmployeeDto> getAll() {
         List<Employee> employeeList = employeeRepository.findAll();
-        if (employeeList.isEmpty()) throw new EmployeeNotFoundException();
         return employeeList.stream()
                 .map(EmployeeMapper::entityToDto)
                 .toList();

@@ -16,7 +16,7 @@
     <tr th:each="employee : ${all_employees}">
         <td th:text="${employee.id}"></td>
         <td th:text="${employee.name}"></td>
-        <td th:text="${employee.companyDto.name}"></td>
+        <td th:text="${employee.companyDto != null ? employee.companyDto.name : ''}"></td>
         <td>
             <a th:href="@{/work_schedule/company/{companyId}/employee/{id}/weekend/add
             (companyId=${employee.companyDto.id}, id=${employee.id})}">Add weekend</a>

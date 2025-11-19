@@ -2,16 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Contact Form</title>
+    <title>Primary Weekends Form</title>
 </head>
 <body>
-<h1>Primary Weekends Form</h1>
+<h1 th:text="'Primary Weekends Form for ' + ${weekend.employee.id}">Primary Weekends Form</h1>
 <form th:object="${weekend}"
       th:action="${weekend.id == null ?
       '/work_schedule/company/ + weekend.employee.companyId + /employee/ + weekend.employee.id + /weekend/add" method="post">
     <input type="hidden" th:field="*{companyId}">
     <label>Date:</label>
-    <input type="text" th:field="*{name}">
+    <input type="text" th:field="*{date}">
     <br>
     <button type="submit">Save</button>
 </form>

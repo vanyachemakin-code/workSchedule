@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Contact Form</title>
+    <title>Employee Form</title>
 </head>
 <body>
 <h1>Employee Form</h1>
@@ -10,7 +10,7 @@
       th:action="${employee.id != null ?
       '/work_schedule/company/+ employee.companyId + /employee/ + employee.id + /update' :
       '/work_schedule/company/ + employee.companyId + /employee/create'}" method="post">
-    <input type="hidden" th:field="*{companyId}">
+    <input type="hidden" th:field="*{id}">
     <label>Name:</label>
     <input type="text" th:field="*{name}">
     <br>

@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Weekends List</title>
 </head>
 <body>
-
+<h1 th:text="'Weekends List for ' + ${weekend.employeeDto.name}">Weekends List</h1>
+<table>
+    <tr>
+        <th>Date</th>
+    </tr>
+    <tr th:each="data : ${weekend.data}">
+        <td th:text="${date}"></td>
+    </tr>
+</table>
+<a th:href="/company/{companyId}/employee/get_all(companyId=${weekend.employeeDto.companyDto.id})">Back to Company</a>
+<a href="/work_schedule">Menu</a>
 </body>
 </html>

@@ -1,10 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Employee List</title>
 </head>
 <body>
-
+<h1 th:text="'Employee List in ' + ${employee.companyDto.name}">Employee List</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="employee : ${employees_in_company}">
+        <td th:text="${employee.id}"></td>
+        <td th:text="${employee.name}"></td>
+        <td>
+            <a th:href="@{/work_schedule/company/{companyId}/employee/{id}/weekend/add
+            (companyId=${employee.companyDto.id}, id=${employee.id})}">Add weekend</a>
+            <a th:href="@{/work_schedule/company/{companyId}/employee/update/{id}
+            (companyId=${employee.companyDto.id}, id=${employee.id})}">Edit</a>
+            <a th:href="@{/work_schedule/company/{companyId}/delete/{id}
+            (companyId=${employee.companyDto.id}, id=${company.id})}">Delete</a>
+        </td>
+    </tr>
+    <a th:href="@{/work_schedule/company/{companyId}/employee/delete_all(companyId=${employee.companyDto.id})}">
+        DELETE ALL EMPLOYEES</a>
+</table>
+<a th:href="@{/work_schedule//company/{companyId}/employee/create(companyId=${employee.companyDto.id})}">
+    Add Employee</a>
+<a href="/work_schedule">Menu</a>
 </body>
 </html>

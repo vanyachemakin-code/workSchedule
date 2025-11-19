@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class EmployeeModel {
 
-    private Long id = System.currentTimeMillis();
+    private Long id;
     private String name;
     private Long companyId;
 }

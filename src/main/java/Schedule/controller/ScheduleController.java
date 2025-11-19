@@ -2,13 +2,14 @@ package Schedule.controller;
 
 import Schedule.dto.ScheduleDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import Schedule.service.ScheduleService;
 
 import java.time.Month;
 import java.util.Collection;
 
-@RestController
+@Controller
 @RequestMapping("/work_schedule/schedule")
 @RequiredArgsConstructor
 public class ScheduleController {

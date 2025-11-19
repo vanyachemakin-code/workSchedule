@@ -1,3 +1,4 @@
 Schedule/model/CompanyModel.class
+Schedule/controller/MenuController.class
 Schedule/dto/EmployeeDto.class
 Schedule/model/EmployeeModel.class
