@@ -1,5 +1,6 @@
 package Schedule.controller;
 
+import Schedule.dto.CompanyDto;
 import Schedule.model.CompanyModel;
 import Schedule.util.mapper.CompanyMapper;
 import lombok.RequiredArgsConstructor;
@@ -41,12 +42,15 @@ public class CompanyController {
 
     @GetMapping("/employee/{employeeId}")
     private String getByEmployeeId(@PathVariable Long employeeId, Model model) {
-        model.addAttribute("company", service.getByEmployeeId(employeeId));
+        CompanyDto companyDto = service.getByEmployeeId(employeeId);
+        model.addAttribute("companyId", companyDto.getId());
+        model.addAttribute("company", companyDto);
         return "company/company-get-by";
     }
 
     @GetMapping("/{id}")
     private String getById(@PathVariable Long id, Model model) {
+        model.addAttribute("companyId", id);
         model.addAttribute("company", service.getById(id));
         return "company/company-get-by";
     }

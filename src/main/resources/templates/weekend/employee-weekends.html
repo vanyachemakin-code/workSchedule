@@ -5,16 +5,16 @@
     <title>Weekends List</title>
 </head>
 <body>
-<h1 th:text="'Weekends List for ' + ${weekend.employeeDto.name}">Weekends List</h1>
+<h1 th:text="'Weekends List for ' + ${employeeName}">Weekends List</h1>
 <table>
     <tr>
         <th>Date</th>
     </tr>
-    <tr th:each="data : ${weekend.data}">
+    <tr th:each="data : ${weekendDates}">
         <td th:text="${date}"></td>
     </tr>
 </table>
-<a th:href="/company/{companyId}/employee/get_all(companyId=${weekend.employeeDto.companyDto.id})">Back to Company</a>
+<a th:href="@{/company/{companyId}/employee/get_all(companyId=${companyId})}">Back to Company</a>
 <a href="/work_schedule">Menu</a>
 </body>
 </html>

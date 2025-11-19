@@ -5,10 +5,10 @@
     <title>Primary Weekends Form</title>
 </head>
 <body>
-<h1 th:text="'Primary Weekends Form for ' + ${weekend.employee.id}">Primary Weekends Form</h1>
+<h1 th:text="'Primary Weekends Form for ' + ${employeeName}">Primary Weekends Form</h1>
 <form th:object="${weekend}"
       th:action="${weekend.id == null ?
-      '/work_schedule/company/ + weekend.employee.companyId + /employee/ + weekend.employee.id + /weekend/add" method="post">
+      '/work_schedule/company/' + companyId + '/employee/' + employeeId + '/weekend/add'" method="post">
     <input type="hidden" th:field="*{companyId}">
     <label>Date:</label>
     <input type="text" th:field="*{date}">
