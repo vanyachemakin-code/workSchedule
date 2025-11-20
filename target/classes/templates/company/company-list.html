@@ -3,6 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <title>Company List</title>
+    <style>
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            font-size: large;
+            font-weight: bold;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .action-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .edit-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .main-button {
+            display: block;
+            width: 200px;
+            padding: 10px;
+            margin: 10px auto;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .delete-all-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 20px auto;
+            display: block;
+        }
+    </style>
 </head>
 <body>
 <h1>Company List</h1>
@@ -22,14 +87,27 @@
         <td th:text="${company.minEmployeePerDay}"></td>
         <td th:text="${company.maxEmployeePerDay}"></td>
         <td>
-            <a th:href="@{/work_schedule/company/update/{id}(id=${company.id})}">Edit</a>
-            <a th:href="@{/work_schedule/company/delete/{id}(id=${company.id})}">Delete</a>
-            <a th:href="@{/work_schedule/company/{companyId}/employee/get_all(companyId=${company.id})}">Employees</a>
+            <a th:href="@{/work_schedule/company/update/{id}(id=${company.id})}"
+               class="edit-button">Edit</a>
+            <br>
+            <a th:href="@{/work_schedule/company/{companyId}/employee/get_all(companyId=${company.id})}"
+               class="edit-button">Employees</a>
+            <br>
+            <form th:action="@{/work_schedule/company/delete/{id}(id=${company.id})}"
+                  method="post" style="display:inline;">
+                <button type="submit" class="action-button">Delete</button>
+            </form>
         </td>
     </tr>
-    <a href="/work_schedule/company/delete_all">DELETE ALL COMPANY</a>
 </table>
-<a href="/work_schedule/company/add">Add Company</a>
-<a href="/work_schedule">Menu</a>
+
+<form th:action="@{/work_schedule/company/delete_all}" method="post">
+    <button type="submit" class="delete-all-button">
+        DELETE ALL EMPLOYEES
+    </button>
+</form>
+
+<a href="/work_schedule/company/add" class="main-button">Add Company</a>
+<a href="/work_schedule" class="main-button">Menu</a>
 </body>
 </html>

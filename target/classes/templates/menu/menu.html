@@ -3,10 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Menu</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+        .menu-button {
+            display: block;
+            width: 200px;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .menu-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 <h1>Menu</h1>
-<a href="/work_schedule/company/list">Company List</a>
-<a href="/work_schedule/employee-list">Employee List</a>
+<a href="/work_schedule/company/list" class="menu-button">Company List</a>
+<a href="/work_schedule/employee-list" class="menu-button">Employee List</a>
 </body>
 </html>

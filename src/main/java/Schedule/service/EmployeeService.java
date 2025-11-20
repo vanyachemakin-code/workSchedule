@@ -5,16 +5,18 @@ import Schedule.dto.EmployeeDto;
 import Schedule.entity.Employee;
 
 import Schedule.exception.EmployeeNotFoundException;
-import Schedule.util.BeanUtils;
 import Schedule.util.mapper.EmployeeMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import Schedule.repository.EmployeeRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+
+
 
 @Service
 @RequiredArgsConstructor
@@ -65,11 +67,10 @@ public class EmployeeService {
         log.info("Delete complete");
     }
 
+    @Transactional
     public void deleteAllEmployeeInCompany(Long companyId) {
         log.info("Deleting all Employees in Company with ID {}", companyId);
-        CompanyDto companyDto = companyService.getById(companyId);
-        companyDto.setEmployees(List.of());
-        companyService.update(companyId, companyDto);
+        employeeRepository.deleteAllByCompanyId(companyId);
         log.info("Delete complete");
     }
 
@@ -78,13 +79,11 @@ public class EmployeeService {
         log.debug(!id.equals(employeeDto.getId()) ?
                 "ID ERROR: Search Employee ID and Updated Employee ID not equals" :
                 "IDs equals");
-        EmployeeDto employeeBeforeUpdate = getById(id);
-        BeanUtils.copyFields(employeeDto, employeeBeforeUpdate);
 
-        CompanyDto companyDto = employeeBeforeUpdate.getCompanyDto();
-        companyService.update(companyId, companyDto);
-
-        employeeRepository.save(EmployeeMapper.dtoToEntity(employeeBeforeUpdate));
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(EmployeeNotFoundException::new);
+        employee.setName(employeeDto.getName());
+        employeeRepository.save(employee);
         log.info("Update complete");
     }
 }

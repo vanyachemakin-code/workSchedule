@@ -28,13 +28,13 @@ public class CompanyController {
         return "company/company-form";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     private String deleteById(@PathVariable Long id) {
         service.deleteById(id);
         return "redirect:/work_schedule/company/list";
     }
 
-    @GetMapping("/delete_all")
+    @PostMapping("/delete_all")
     private String deleteAll() {
         service.deleteAll();
         return "redirect:/work_schedule/company/list";

@@ -35,14 +35,14 @@ public class EmployeeController {
         return "employee/employee-form";
     }
 
-    @GetMapping("/company/{companyId}/employee/delete/{id}")
+    @PostMapping("/company/{companyId}/employee/delete/{id}")
     private String deleteById(@PathVariable Long companyId,
                               @PathVariable Long id) {
         employeeService.deleteById(id);
         return "redirect:/work_schedule/company/" + companyId + "/employee/get_all";
     }
 
-    @GetMapping("/company/{companyId}/employee/delete_all")
+    @PostMapping("/company/{companyId}/employee/delete_all")
     private String deleteAllEmployeeInCompany(@PathVariable Long companyId) {
         employeeService.deleteAllEmployeeInCompany(companyId);
         return "redirect:/work_schedule/company/" + companyId + "/employee/get_all";
