@@ -16,6 +16,10 @@ public class EmployeeMapper {
     }
 
     public EmployeeDto entityToDto (Employee employee) {
+        mapper.typeMap(Employee.class, EmployeeDto.class)
+                .addMappings(m ->
+                        m.map(Employee::getCompany, EmployeeDto::setCompanyDto)
+                );
         return mapper.map(employee, EmployeeDto.class);
     }
 
