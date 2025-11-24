@@ -40,6 +40,7 @@ public class CompanyController {
         return "redirect:/work_schedule/company/list";
     }
 
+    //для поисковика (реализовать позже), мб кнопка в списке всех сотрудников
     @GetMapping("/employee/{employeeId}")
     private String getByEmployeeId(@PathVariable Long employeeId, Model model) {
         CompanyDto companyDto = service.getByEmployeeId(employeeId);

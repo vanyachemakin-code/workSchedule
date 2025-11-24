@@ -1,7 +1,6 @@
 package Schedule.controller;
 
 import Schedule.dto.CompanyDto;
-import Schedule.dto.EmployeeDto;
 import Schedule.model.EmployeeModel;
 import Schedule.service.CompanyService;
 import Schedule.util.mapper.EmployeeMapper;
