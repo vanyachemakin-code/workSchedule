@@ -34,6 +34,12 @@ public class PrimaryWeekendService {
         log.info("Add weekend complete");
     }
 
+    public PrimaryWeekendDto getWeekendsByEmployeeId(Long employeeId) {
+        log.info("Search Weekends for Employee with ID {}", employeeId);
+        EmployeeDto employeeDto = employeeService.getById(employeeId);
+        return employeeDto.getPrimaryWeekends();
+    }
+
     public void deleteWeekends(Long employeeId) {
         log.info("Deleting weekends for Employee with ID {}", employeeId);
         EmployeeDto employeeDto = employeeService.getById(employeeId);

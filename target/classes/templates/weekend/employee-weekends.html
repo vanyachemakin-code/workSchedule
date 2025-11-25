@@ -3,6 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>Weekends List</title>
+    <style>
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            font-size: large;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .action-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            display: inline-block;
+        }
+
+        .edit-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .main-button {
+            display: block;
+            width: 200px;
+            padding: 10px;
+            margin: 10px auto;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+         .delete-all-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 20px auto;
+            display: block;
+        }
+    </style>
 </head>
 <body>
 <h1 th:text="'Weekends List for ' + ${employeeName}">Weekends List</h1>
@@ -14,7 +78,16 @@
         <td th:text="${date}"></td>
     </tr>
 </table>
-<a th:href="@{/company/{companyId}/employee/get_all(companyId=${companyId})}">Back to Company</a>
-<a href="/work_schedule">Menu</a>
+<a th:href="@{/work_schedule/company/{companyId}/employee/{employeeId}/weekend/add
+(companyId=${companyId}, employeeId=${employeeId})}"
+   class="main-button">
+    Add Weekend
+</a>
+
+<a th:href="@{/work_schedule/company/{companyId}/employee/get_all(companyId=${companyId})}" class="main-button">
+    Back to Employee List
+</a>
+<a href="/work_schedule" class="main-button">Menu</a>
 </body>
 </html>
+

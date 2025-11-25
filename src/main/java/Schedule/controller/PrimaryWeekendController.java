@@ -43,9 +43,12 @@ public class PrimaryWeekendController {
     @GetMapping("/company/{companyId}/employee/{employeeId}/weekend/list")
     private String getEmployeeWeekends(@PathVariable Long employeeId, Model model) {
         EmployeeDto employeeDto = employeeService.getById(employeeId);
+        PrimaryWeekendDto primaryWeekendDto = weekendService.getWeekendsByEmployeeId(employeeId);
         model.addAttribute("companyId", employeeDto.getCompanyDto().getId());
+        model.addAttribute("employeeId", employeeDto.getId());
         model.addAttribute("employeeName", employeeDto.getName());
-        model.addAttribute("weekendDates", employeeDto.getPrimaryWeekends().getDate());
+        model.addAttribute("weekendDates",
+                primaryWeekendDto == null ? new PrimaryWeekendDto().getDate() : primaryWeekendDto.getDate());
         return "weekend/employee-weekends";
     }
 }

@@ -22,7 +22,7 @@ public class PrimaryWeekend {
     private String date;
 
     @ManyToOne
-    @JoinColumn(name = "primary_weekends")
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 }
 

@@ -80,8 +80,8 @@
         <td th:text="${employee.id}"></td>
         <td th:text="${employee.name}"></td>
         <td>
-            <a th:href="@{/work_schedule/company/{companyId}/employee/{id}/weekend/add(companyId=${companyId}, id=${employee.id})}"
-               class="edit-button">Add weekend</a>
+            <a th:href="@{/work_schedule/company/{companyId}/employee/{id}/weekend/list(companyId=${companyId}, id=${employee.id})}"
+               class="edit-button">Weekends</a>
 
             <a th:href="@{/work_schedule/company/{companyId}/employee/update/{id}(companyId=${companyId}, id=${employee.id})}"
                class="edit-button">Edit</a>
