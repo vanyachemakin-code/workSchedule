@@ -23,11 +23,11 @@
         <td th:text="${company.minEmployeePerDay}"></td>
         <td th:text="${company.maxEmployeePerDay}"></td>
         <td>
-            <a th:href="@{/work_schedule/company/update/{id}(id=${company.id})}"
-               class="edit-button">Edit</a>
-            <br>
             <a th:href="@{/work_schedule/company/{companyId}/employee/get_all(companyId=${company.id})}"
                class="edit-button">Employees</a>
+            <br>
+            <a th:href="@{/work_schedule/company/update/{id}(id=${company.id})}"
+               class="edit-button">Edit</a>
             <br>
             <form th:action="@{/work_schedule/company/delete/{id}(id=${company.id})}"
                   method="post" style="display:inline;">

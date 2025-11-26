@@ -10,6 +10,9 @@ import Schedule.util.mapper.PrimaryWeekendMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,31 +26,32 @@ public class PrimaryWeekendService {
     public void add(Long employeeId, PrimaryWeekendDto primaryWeekendDto) {
         log.info("Adding weekend for Employee with ID {}", employeeId);
         EmployeeDto employeeDto = employeeService.getById(employeeId);
-        employeeDto.setPrimaryWeekends(primaryWeekendDto);
-
-        employeeService.update(
-                employeeDto.getCompanyDto().getId(),
-                employeeId,
-                employeeDto
-        );
+        primaryWeekendDto.setEmployeeDto(employeeDto);
         weekendRepository.save(PrimaryWeekendMapper.dtoToEntity(primaryWeekendDto));
         log.info("Add weekend complete");
     }
 
-    public PrimaryWeekendDto getWeekendsByEmployeeId(Long employeeId) {
+    public List<PrimaryWeekendDto> getWeekendsByEmployeeId(Long employeeId) {
         log.info("Search Weekends for Employee with ID {}", employeeId);
         EmployeeDto employeeDto = employeeService.getById(employeeId);
-        return employeeDto.getPrimaryWeekends();
+        List<PrimaryWeekendDto> weekends = employeeDto.getPrimaryWeekendDtos();
+        log.info("Weekends found");
+        return weekends;
     }
 
+    public void deleteById(Long id) {
+        log.info("Deleting weekend by ID {}", id);
+        if (weekendRepository.findById(id).isEmpty()) throw new WeekendsNotFoundException();
+        weekendRepository.deleteById(id);
+        log.info("Delete complete");
+    }
+
+    @Transactional
     public void deleteWeekends(Long employeeId) {
         log.info("Deleting weekends for Employee with ID {}", employeeId);
         EmployeeDto employeeDto = employeeService.getById(employeeId);
-        if (employeeDto.getPrimaryWeekends() == null) throw new WeekendsNotFoundException();
-
-        weekendRepository.delete(PrimaryWeekendMapper.dtoToEntity(
-                employeeDto.getPrimaryWeekends()
-        ));
+        if (employeeDto.getPrimaryWeekendDtos().isEmpty()) throw new WeekendsNotFoundException();
+        weekendRepository.deleteAllByEmployeeId(employeeDto.getId());
         log.info("Delete complete");
     }
 

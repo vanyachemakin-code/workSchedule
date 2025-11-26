@@ -1,8 +1,9 @@
 package Schedule.controller;
 
 import Schedule.dto.EmployeeDto;
-import Schedule.dto.PrimaryWeekendDto;
+import Schedule.model.PrimaryWeekendModel;
 import Schedule.service.EmployeeService;
+import Schedule.util.mapper.PrimaryWeekendMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +22,10 @@ public class PrimaryWeekendController {
     private final EmployeeService employeeService;
 
     @PostMapping("/company/{companyId}/employee/{employeeId}/weekend/add")
-    private String add(@PathVariable Long companyId, @PathVariable Long employeeId, @ModelAttribute("weekend") PrimaryWeekendDto primaryWeekendDto) {
-        weekendService.add(employeeId, primaryWeekendDto);
+    private String add(@PathVariable Long companyId,
+                       @PathVariable Long employeeId,
+                       @ModelAttribute("weekend") PrimaryWeekendModel primaryWeekendModel) {
+        weekendService.add(employeeId, PrimaryWeekendMapper.modelToDto(primaryWeekendModel));
         return MessageFormat.format(
                 "redirect:/work_schedule/company/{0}/employee/{1}/weekend/list",
                 companyId,
@@ -36,19 +39,17 @@ public class PrimaryWeekendController {
         model.addAttribute("employeeName", employeeDto.getName());
         model.addAttribute("companyId", employeeDto.getCompanyDto().getId());
         model.addAttribute("employeeId", employeeDto.getId());
-        model.addAttribute("weekend", new PrimaryWeekendDto());
+        model.addAttribute("weekend", new PrimaryWeekendModel());
         return "weekend/weekend-form";
     }
 
     @GetMapping("/company/{companyId}/employee/{employeeId}/weekend/list")
     private String getEmployeeWeekends(@PathVariable Long employeeId, Model model) {
         EmployeeDto employeeDto = employeeService.getById(employeeId);
-        PrimaryWeekendDto primaryWeekendDto = weekendService.getWeekendsByEmployeeId(employeeId);
         model.addAttribute("companyId", employeeDto.getCompanyDto().getId());
         model.addAttribute("employeeId", employeeDto.getId());
         model.addAttribute("employeeName", employeeDto.getName());
-        model.addAttribute("weekendDates",
-                primaryWeekendDto == null ? new PrimaryWeekendDto().getDate() : primaryWeekendDto.getDate());
+        model.addAttribute("weekendDates", employeeDto.getPrimaryWeekendDtos());
         return "weekend/employee-weekends";
     }
 }

@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Modifying
-    @Query("DELETE FROM Employee e WHERE e.company.id = :companyId")
+    @Query("DELETE FROM employees e WHERE e.company.id = :companyId")
     void deleteAllByCompanyId(@Param("companyId") Long companyId);
 }

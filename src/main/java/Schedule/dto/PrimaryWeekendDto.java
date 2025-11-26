@@ -10,12 +10,10 @@ public class PrimaryWeekendDto {
 
     private Long id;
     private EmployeeDto employeeDto;
-    private List<String> date = new ArrayList<>();
+    private String date;
+    private EmployeeDto employeeDto;
 
     public boolean isItWeekend(String day) {
-        for (String dataStr: date) {
-            if (dataStr.equals(day)) return true;
-        }
-        return false;
+        return date.equals(day);
     }
 }
